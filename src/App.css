@@ -1,0 +1,338 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+input[type="text"].quantitySelector
+{
+  max-width:50px;
+}
+
+div.descriptionContainer
+{
+  -webkit-display:flex;
+  display:flex;
+  -webkit-justify-content:center;
+  justify-content: center;
+  -webkit-flex-direction:column;
+  flex-direction: column;
+  text-align:left;
+}
+
+div.ingredientSpace
+{
+  -webkit-display:flex;
+  display:flex;
+  -webkit-flex-wrap:wrap;
+  flex-wrap:wrap;
+  user-select:none;
+  -webkit-justify-content:flex-start;
+  justify-content: flex-start;
+}
+
+div.ingredientContainer
+{
+  height:175px;
+  width:175px;
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  margin:1em;
+}
+
+@media ONLY screen AND (max-width:991px)
+{
+  li.choseOption
+  {
+    -webkit-display:flex;
+    display:flex;
+    -webkit-flex-direction:column;
+    flex-direction: column;
+  }
+}
+
+@media ONLY screen AND (max-width:767px)
+{
+  li.choseOption
+  {
+    flex-direction: row;
+  }
+}
+
+div.wholeblackout
+{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-display:flex;
+  display:flex;
+  -webkit-justify-content:center;
+  justify-content: center;
+  -webkit-align-items:center;
+  align-items:center;
+}
+
+div.wholeblackout > div.whiteRectangle
+{
+  background:white;
+  max-width:500px;
+  margin:2em;
+  padding:2em;
+  position:relative;
+}
+
+div.checkoutButtons
+{
+  -webkit-display:flex;
+  display:flex;
+  -webkit-justify-content:flex-start;
+  justify-content: flex-start;
+  -webkit-align-items:center;
+  align-items:center;
+}
+
+div.checkoutButtons > button
+{
+  margin:3em 0 0 0.5em;
+}
+
+#closeWindow
+{
+  position:absolute;
+  cursor:pointer;
+  font-size:1.5em;
+  top:0;
+  right:0.1em;
+  -webkit-display:flex;
+  display:flex;
+  -webkit-align-items:flex-start;
+  align-items:flex-start;
+}
+
+
+/* Loading screen start */
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Loading screen end */
+
+
+div.appSpacer
+{
+  margin-bottom:4em;
+}
+
+div.ingredientList
+{
+  display:flex;
+  justify-content: center;
+  flex-wrap:wrap;
+}
+
+div.ingredientList > div.ingredientLink
+{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.ingredientList > div.ingredientLink > div.card
+{
+  top:0em;
+}
+
+div.ingredientList > div.ingredientLink > div.card:hover
+{
+  position:relative;
+  top:-1em;
+  transition:all 0.5s ease 0s;
+  cursor:pointer;
+}
+
+div.ingredientList > div.ingredientLink > h4
+{
+  font-size:1.25em;
+  font-weight:normal;
+  margin:0;
+}
+
+/*
+Navigation menu starts here
+*/
+nav a.navbar-brand.mainOne
+{
+  font-size:1.5em;
+}
+
+nav a.navbar-brand
+{
+  font-size:1em;
+}
+
+div.App nav.navbar a.activeLink
+{
+  color:silver;
+}
+
+
+div.particularIngredient
+{
+  border:1px solid gray;
+  margin-top:3em;
+}
+
+
+form.checkoutForm
+{
+  max-width:800px;
+  margin:1em auto;
+  border:1px solid transparent;
+}
+
+form.checkoutForm.hasError
+{
+  border-color:red;
+}
+
+form.checkoutForm > div.form-group
+{
+  -webkit-display:flex;
+  display:flex;
+  -webkit-align-items:center;
+  align-items:center;
+  -webkit-justify-content:center;
+  justify-content: center;
+  margin:1em 2em;
+}
+
+form.checkoutForm > div.form-group > div
+{
+  -webkit-flex:1 1 auto;
+  flex:1 1 auto;
+  -webkit-display:flex;
+  display:flex;
+  -webkit-align-items:center;
+  align-items:center;
+}
+
+form.checkoutForm > div.form-group > div > label
+{
+  margin-right:3em;
+  -webkit-flex:0 0 auto;
+  flex:0 0 auto;
+}
+
+form.checkoutForm > div.form-group > div > div.radioContainer
+{
+  font-size:1.5em;
+  text-align:left;
+  -webkit-flex:1 1 auto;
+  flex:1 1 auto;
+  display:-webkit-flex;
+  display:flex;
+}
+
+form.checkoutForm > div.form-group > div > div.radioContainer > div > label
+{
+  margin-right:1em;
+}
+
+form.checkoutForm > div.form-group > div > input[type='checkbox']
+{
+  max-width:25px;
+  max-height:25px;
+}
+
+
+form.checkoutForm  div.buttonContainer
+{
+  display:-webkit-flex;
+  display:flex;
+  -webkit-justify-content:flex-end;
+  justify-content: flex-end;
+}
+
+form.checkoutForm  div.buttonContainer > button
+{
+  margin-left:1em;
+}
+
+div.errorMsgs > h2
+{
+  font-weight:normal;
+  font-size:1.25em;
+}
+
+div.formContainer > div.ingredientInfo
+{
+  display:-webkit-flex;
+  display:flex;
+  -webkit-flex-wrap:wrap;
+  flex-wrap:wrap;
+  -webkit-justify-content:center;
+  justify-content: center;
+  max-width:800px;
+  margin:0 auto;
+}
+
+div.formContainer > div.ingredientInfo > div.singleIngredient
+{
+  display:-webkit-flex;
+  display:flex;
+  -webkit-flex-direction:column;
+  flex-direction: column;
+  margin:1.25em;
+}
+
+div.formContainer > div.ingredientInfo > div.singleIngredient > img
+{
+  max-width:150px;
+}
+
+div.formContainer > div.ingredientInfo > div.singleIngredient > h3,
+div.formContainer > div.ingredientInfo > div.singleIngredient > h4
+{
+  font-size:1.25em;
+}

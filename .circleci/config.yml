@@ -1,0 +1,141 @@
+version: 2.1
+orbs:
+  node: circleci/node@2.0.3
+  aws-cli: circleci/aws-cli@1.0.0
+
+terraform: &terraform
+  docker:
+    - image: mcarras1/terraform_aws-cli:1.2
+  environment:
+    TF_IN_AUTOMATION: true
+    TF_VAR_AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+    TF_VAR_AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+    TF_VAR_AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+
+jobs:
+  build:
+    executor: node/default
+    environment:
+        BACKEND_API_ENV: $BACKEND_API
+        CI: true
+    steps:
+        - checkout
+        - run:
+            name: Set env file
+            command: |
+                echo "REACT_APP_API_URL=$BACKEND_API_ENV" >> .env
+        - run:
+            name: Install
+            command: npm ci
+        - run:
+            name: Unit test
+            command: npm test
+        - run:
+            name: Build
+            command: | 
+              CI=false npm run build
+        - persist_to_workspace:
+            root: ~/project
+            paths: .
+  init:
+    <<: *terraform
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: init
+          command: |
+            cd terraform
+            terraform init
+      - persist_to_workspace:
+          root: ~/project
+          paths: . 
+
+  plan:
+    <<: *terraform
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: plan
+          command: |
+            cd terraform
+            terraform plan
+      - store_artifacts:
+          path: ~/project/terraform/tfplan
+          destination: tfplan
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+
+  apply:
+    <<: *terraform
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: apply
+          command: |
+            cd terraform
+            terraform apply -auto-approve > output.txt
+      - run:
+          name: show
+          command: terraform show -no-color > tfresult
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/install
+      - aws-cli/setup
+      - run:
+          name: Launch a new version of ECS Service
+          command: |
+            aws ecs update-service --cluster backend-pizza --service backend-pizza --force-new-deployment >> output.txt
+            cat output.txt
+  
+  destroy:
+    <<: *terraform
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: destroy app
+          command: |
+            cd terraform
+            terraform destroy -auto-approve
+
+workflows:
+  version: 2
+  build_front:
+    jobs:
+      - build
+      - init:
+         requires:
+            - build
+      - plan:
+          requires:
+            - init
+      - apply:
+          requires:
+            - plan
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - apply
+          filters:
+            branches:
+              only:
+                - master
+      - destroy:
+          requires:
+            - plan
+          filters:
+            branches:
+              only:
+                - destroy

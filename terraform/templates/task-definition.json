@@ -1,0 +1,22 @@
+[
+{
+  "name": "${cluster-name}",
+  "image": "${docker-img}",
+  "cpu": 128,
+  "memoryReservation": 128,
+  "portMappings": [
+    {
+      "containerPort": 3000,
+      "protocol": "tcp",
+      "hostPort": 3000
+    }
+  ],
+  "environment": [
+    {
+      "name": "REACT_APP_API_URL",
+      "value": "${backend_api_url}"
+    }
+  ],
+  "essential": true
+}
+]
