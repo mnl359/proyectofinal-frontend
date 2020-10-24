@@ -6,7 +6,7 @@ orbs:
 
 terraform: &terraform
   docker:
-    - image: mcarras1/terraform_aws-cli:1.2
+    - image: terraform:light
   environment:
     TF_IN_AUTOMATION: true
     TF_VAR_AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
