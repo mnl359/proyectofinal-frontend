@@ -20,7 +20,7 @@ resource "aws_route_table" "PA-rt" {
   tags         = var.tags
   route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = igw-02643ddd9e0b5ba78
+        gateway_id = "igw-02643ddd9e0b5ba78"
     }
 }
 
