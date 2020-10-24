@@ -1,6 +1,6 @@
 [
 {
-  "name": "${cluster-name}",
+  "name": "${service-name}",
   "image": "${docker-img}",
   "cpu": 128,
   "memoryReservation": 128,

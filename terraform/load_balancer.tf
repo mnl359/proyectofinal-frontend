@@ -61,6 +61,6 @@ resource "aws_launch_configuration" "ecs-launch-configuration" {
 data "template_file" "ecs-launch-configuration-user-data" {
     template = file("${path.module}/templates/user-data.tpl")
     vars = {
-        cluster-name = "pizza-application"
+        cluster-name = "backend-pizza"
     }
 }

@@ -5,14 +5,14 @@ resource "aws_cloudwatch_log_group" "frontend-pizza" {
 
 ## Task definition
 resource "aws_ecs_task_definition" "frontend-pizza" {
-    family                = "frontend-pizza"
-    container_definitions = data.template_file.ecs-task-definition.rendered
+    family                = var.ecs-service-name
+    container_definitions = data.template_file.frontend-task-definition.rendered
 }
 
-data "template_file" "ecs-task-definition" {
+data "template_file" "frontend-task-definition" {
     template = file("${path.module}/templates/task-definition.json")
     vars = {
-        cluster-name = "pizza-application"
+        service-name = "frontend-pizza"
         docker-img   = var.docker-image
         backend_api_url = "ecs-load-balancer-1848237400.us-east-2.elb.amazonaws.com"
         region       = var.aws_region
@@ -23,7 +23,7 @@ data "template_file" "ecs-task-definition" {
 resource "aws_ecs_service" "frontend-pizza-service" {
   	name            = var.ecs-service-name
   	iam_role        = aws_iam_role.ecs-service-role.arn
-  	cluster         = "pizza-application"
+  	cluster         = "backend-pizza"
   	task_definition = aws_ecs_task_definition.frontend-pizza.arn
   	desired_count   = var.asg_desired
 

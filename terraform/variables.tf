@@ -58,12 +58,6 @@ variable "frontend_port" {
   default     = "3000"
 }
 
-variable "ecs_cluster-name" {
-  description = "Cluster name"
-  type        = string
-  default     = "pizza-application"
-}
-
 ## Autoscaling group variables
 variable "asg_max-instances" {
   description = "Maximum running instances in group"
