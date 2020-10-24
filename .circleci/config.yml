@@ -13,7 +13,7 @@ terraform: &terraform
     TF_VAR_AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
 jobs:
-  build:
+  node:
     executor: node/default
     environment:
         BACKEND_API_ENV: $BACKEND_API
@@ -37,6 +37,21 @@ jobs:
         - persist_to_workspace:
             root: ~/project
             paths: .
+  
+  build:
+    executor: docker/docker
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker
+      - docker/check
+      - docker/build:
+          image: mcarras1/pizza-frontend
+          tag: "latest"
+      - docker/push:
+          image: mcarras1/pizza-frontend
+          tag: "latest"
+
   init:
     <<: *terraform
     steps:
@@ -111,7 +126,10 @@ workflows:
   version: 2
   build_front:
     jobs:
-      - build
+      - node
+      - build:
+          requires:
+            - node
       - init:
          requires:
             - build
