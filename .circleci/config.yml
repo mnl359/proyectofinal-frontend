@@ -109,7 +109,7 @@ jobs:
       - run:
           name: Launch a new version of ECS Service
           command: |
-            aws ecs update-service --cluster backend-pizza --service backend-pizza --force-new-deployment >> output.txt
+            aws ecs update-service --cluster backend-pizza --service frontend-pizza --force-new-deployment >> output.txt
             cat output.txt
   
   destroy:
