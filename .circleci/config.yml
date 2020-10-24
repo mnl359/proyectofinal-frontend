@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@2.0.3
   aws-cli: circleci/aws-cli@1.0.0
+  docker: circleci/docker@1.0.1
 
 terraform: &terraform
   docker:
