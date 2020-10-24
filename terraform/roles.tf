@@ -1,6 +1,6 @@
 ## ECS instance role
 resource "aws_iam_role" "ecs-instance-role" {
-    name                = "ecs-instance-role"
+    name                = "frontend-instance-role"
     path                = "/"
     assume_role_policy  = data.aws_iam_policy_document.ecs-instance-policy.json
 }
@@ -25,14 +25,14 @@ resource "aws_iam_role_policy_attachment" "ecs-instance-role-attachmentECS" {
 
 # Instance profile for launch configuration
 resource "aws_iam_instance_profile" "ecs-instance-profile" {
-    name = "ecs-instance-profile"
+    name = "frontend-instance-profile"
     path = "/"
     role = "ecs-instance-role"
 }
 
 ## Role for ECS
 resource "aws_iam_role" "ecs-service-role" {
-    name                = "ecs-service-role"
+    name                = "frontend-service-role"
     path                = "/"
     assume_role_policy  = data.aws_iam_policy_document.ecsAssumeRole-policy.json
 }
@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "ecs-service-policy" {
 }
 
 resource "aws_iam_policy" "ecs-service-policy" {
-  name   = "ecs-service-policy"
+  name   = "frontend-service-policy"
   path   = "/"
   policy = data.aws_iam_policy_document.ecs-service-policy.json
 }

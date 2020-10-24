@@ -1,8 +1,3 @@
-## Internet Gateway
-resource "aws_internet_gateway" "pizza-application-gw" {
-  vpc_id = var.vpc_id
-  tags   = var.tags
-}
 
 ## Subnets for high availability
 resource "aws_subnet" "pizza-application-sub1" {
@@ -19,20 +14,13 @@ resource "aws_subnet" "pizza-application-sub2" {
   tags              = var.tags
 }
 
-## Subnet group for RDS creation
-resource "aws_db_subnet_group" "pizza-application-sg" {
-  name       = "pizza-application-sg"
-  subnet_ids = [aws_subnet.pizza-application-sub1.id,aws_subnet.pizza-application-sub2.id]
-  tags       = var.tags
-}
-
 ## Route table
 resource "aws_route_table" "PA-rt" {
   vpc_id       = var.vpc_id
   tags         = var.tags
   route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.pizza-application-gw.id
+        gateway_id = igw-02643ddd9e0b5ba78
     }
 }
 

@@ -18,7 +18,7 @@ resource "aws_alb" "ecs-load-balancer" {
 
 ## Target group for load balancer and ECS
 resource "aws_alb_target_group" "ecs-target_group" {
-    name                = "ecsTargetgroup"
+    name                = "frontend-targetgroup"
     port                = var.frontend_port
     protocol            = "HTTP"
     vpc_id              = var.vpc_id
@@ -49,7 +49,7 @@ resource "aws_alb_listener" "alb-listener" {
 
 ## Launch configuration for instances
 resource "aws_launch_configuration" "ecs-launch-configuration" {
-    name                        = "ecs-launch-configuration"
+    name                        = "frontend-launch-configuration"
     image_id                    = var.ec2_amiid
     instance_type               = var.ec2_type
     iam_instance_profile        = aws_iam_instance_profile.ecs-instance-profile.name 
